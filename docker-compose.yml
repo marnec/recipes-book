@@ -26,14 +26,20 @@ services:
       - "9229:9229"
     volumes:
       - ./backend:/app/
-    secrets:
-      - env
+      - ${OCI_KEY_FILE}:/root/.oci/oracle-api.pem 
     environment:
       # DATABASE LOCALE
       CONNECTION: ${CONNECTION}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
       CONNECTION_STRING: ${CONNECTION_STRING}
+      OCI_USER: ${OCI_USER}
+      OCI_FINGERPRINT: ${OCI_FINGERPRINT}
+      OCI_TENANCY: ${OCI_TENANCY}
+      OCI_REGION: ${OCI_REGION}
+      OCI_KEY_FILE: ${OCI_KEY_FILE}
+      OCI_ADB_ID: ${OCI_ADB_ID}
+
       # AUTHENTICATION
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRESIN: ${JWT_EXPIRESIN}
@@ -68,7 +74,3 @@ services:
 networks:
   local_network:
     name: ${APP_NAME}-${INFR_NAME}-network
-
-secrets:
-  env:
-    file: dev.env
