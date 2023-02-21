@@ -1,5 +1,5 @@
 {
   "projects": {
-    
+    "backend": "git@github.com:marnec/recipes-book-backend.git"
   }
 }
