@@ -1,0 +1,74 @@
+version: "3.5"
+services:
+  # postgres:
+  #   image: postgres:11
+  #   environment:
+  #     POSTGRES_USER: ${DB_USERNAME}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #     PGDATA: "/var/lib/postgresql/data"
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pg-volume-recipes-book:/var/lib/postgresql/data
+  #   networks:
+  #     local_network:
+  #       aliases:
+  #         - postgres
+
+  backend:
+    container_name: backend-${APP_NAME}
+    build:
+      context: ./backend
+      dockerfile: docker/dockerfile.local
+    image: backend-${APP_NAME}:local
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    volumes:
+      - ./backend:/app/
+    secrets:
+      - env
+    environment:
+      # DATABASE LOCALE
+      CONNECTION: ${CONNECTION}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CONNECTION_STRING: ${CONNECTION_STRING}
+      # AUTHENTICATION
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRESIN: ${JWT_EXPIRESIN}
+      JWT_REFRESH_EXPIRESIN: ${JWT_REFRESH_EXPIRESIN}
+      # HEART BEAT
+      PATH_HEART_BEAT: ${PATH_HEART_BEAT}
+      APP_NAME: ${APP_NAME}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      TENANT_NAME: ${TENANT_NAME}
+      ENABLE_BACKEND_CRON_HEART_BEAT: ${ENABLE_BACKEND_CRON_HEART_BEAT}
+      BACKEND_CRON_HEART_BEAT: ${BACKEND_CRON_HEART_BEAT}
+    networks:
+      local_network:
+        aliases:
+          - backend
+
+  # frontend:
+  #   container_name: frontend-${APP_NAME}
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: docker/dockerfile.local
+  #   image: frontend-${APP_NAME}:local
+  #   ports:
+  #     - "4200:4200"
+  #   volumes:
+  #     - ./frontend:/app/
+  #   networks:
+  #     local_network:
+  #       aliases:
+  #         - frontend
+
+networks:
+  local_network:
+    name: ${APP_NAME}-${INFR_NAME}-network
+
+secrets:
+  env:
+    file: dev.env
