@@ -1,19 +1,5 @@
 version: "3.5"
 services:
-  # postgres:
-  #   image: postgres:11
-  #   environment:
-  #     POSTGRES_USER: ${DB_USERNAME}
-  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
-  #     PGDATA: "/var/lib/postgresql/data"
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - pg-volume-recipes-book:/var/lib/postgresql/data
-  #   networks:
-  #     local_network:
-  #       aliases:
-  #         - postgres
 
   backend:
     container_name: backend-${APP_NAME}
@@ -56,20 +42,20 @@ services:
         aliases:
           - backend
 
-  # frontend:
-  #   container_name: frontend-${APP_NAME}
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: docker/dockerfile.local
-  #   image: frontend-${APP_NAME}:local
-  #   ports:
-  #     - "4200:4200"
-  #   volumes:
-  #     - ./frontend:/app/
-  #   networks:
-  #     local_network:
-  #       aliases:
-  #         - frontend
+  frontend:
+    container_name: frontend-${APP_NAME}
+    build:
+      context: ./frontend
+      dockerfile: docker/dockerfile.local
+    image: frontend-${APP_NAME}:local
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./frontend:/app/
+    networks:
+      local_network:
+        aliases:
+          - frontend
 
 networks:
   local_network:

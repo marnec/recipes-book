@@ -65,3 +65,8 @@ run-migration:
 revert-migration:
 	@docker exec -it "backend-${APP_NAME}" npm run typeorm:revert
 
+gitcrypt-init:
+	cd frontend && git-crypt init
+	git-crypt init
+	cp ${GITCRYPT_KEY_PATH} frontend/.git/git-crypt/keys/default
+	cp ${GITCRYPT_KEY_PATH} .git/git-crypt/keys/default
