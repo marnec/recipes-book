@@ -1,5 +1,6 @@
 {
   "projects": {
-    "backend": "git@github.com:marnec/recipes-book-backend.git"
+    "backend": "git@github.com:mn-prods/recipes-book-backend.git",
+    "frontend": "git@github.com:mn-prods/recipes-book-frontend.git"
   }
 }
