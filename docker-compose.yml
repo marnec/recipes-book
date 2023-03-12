@@ -14,7 +14,6 @@ services:
       - ./backend:/app/
       - ${OCI_KEY_FILE}:/root/.oci/oracle-api.pem 
     environment:
-      # DATABASE LOCALE
       CONNECTION: ${CONNECTION}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -26,17 +25,7 @@ services:
       OCI_KEY_FILE: ${OCI_KEY_FILE}
       OCI_ADB_ID: ${OCI_ADB_ID}
 
-      # AUTHENTICATION
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_EXPIRESIN: ${JWT_EXPIRESIN}
-      JWT_REFRESH_EXPIRESIN: ${JWT_REFRESH_EXPIRESIN}
-      # HEART BEAT
-      PATH_HEART_BEAT: ${PATH_HEART_BEAT}
       APP_NAME: ${APP_NAME}
-      CLIENT_SECRET: ${CLIENT_SECRET}
-      TENANT_NAME: ${TENANT_NAME}
-      ENABLE_BACKEND_CRON_HEART_BEAT: ${ENABLE_BACKEND_CRON_HEART_BEAT}
-      BACKEND_CRON_HEART_BEAT: ${BACKEND_CRON_HEART_BEAT}
     networks:
       local_network:
         aliases:
